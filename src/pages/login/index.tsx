@@ -8,6 +8,7 @@ import type { LoginParams } from '@/services/auth';
 import { AuthServices } from '@/services/auth';
 
 import styles from './index.less';
+import { AppConfig } from '@/config/app.config';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -54,10 +55,11 @@ const Login: React.FC = () => {
     setSubmitting(true);
     try {
       // 登录
-      await AuthServices.login({
+      const { data } = await AuthServices.login({
         username: values.username!,
         password: values.password!,
       });
+      localStorage.setItem(AppConfig.LocalStorage.Token, data.accessToken);
       message.success('登录成功！');
       await fetchUserInfo();
       goto();

@@ -1,16 +1,19 @@
 import type { RequestConfig } from 'umi';
 import { errorHandler, requestInterceptor } from './interceptors';
-import { extend } from 'umi-request';
+import { request } from 'umi';
 import { ContentType } from './constant';
 
 export type HttpParams = Record<string, any> | URLSearchParams;
 
-const request = extend({
-  prefix: '/api',
-});
+export interface ResponseData<T> {
+  statusCode: number;
+  message: string;
+  error?: Record<string, string>;
+  data: T;
+}
 
-async function getJson<T>(url: string, params?: HttpParams): Promise<T> {
-  return request<T>(url, {
+async function getJson<T>(url: string, params?: HttpParams) {
+  return request<ResponseData<T>>(url, {
     method: 'GET',
     params,
   });
@@ -28,15 +31,15 @@ async function getImageToBase64(url: string, params?: HttpParams): Promise<strin
   });
 }
 
-async function postJson<T>(url: string, data?: Record<string, any>): Promise<T> {
-  return request(url, {
+async function postJson<T>(url: string, data?: Record<string, any>) {
+  return request<ResponseData<T>>(url, {
     method: 'POST',
     data,
   });
 }
 
-async function postFile<T>(url: string, data?: FormData): Promise<T> {
-  return request(url, {
+async function postFile<T>(url: string, data?: FormData) {
+  return request<ResponseData<T>>(url, {
     method: 'POST',
     data,
     headers: {
@@ -57,6 +60,7 @@ export const HttpUtils = { getJson, postJson, postFile, getImageToBase64, delete
 const requestConfig: RequestConfig = {
   errorHandler,
   requestInterceptors: [requestInterceptor],
+  prefix: '/api',
 };
 
 export default requestConfig;

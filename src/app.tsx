@@ -28,8 +28,8 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const currentUser = await AuthServices.profile();
-      return currentUser;
+      const { data } = await AuthServices.profile();
+      return data;
     } catch (error) {
       history.push(loginPath);
     }
