@@ -1,11 +1,15 @@
-import type { CustomModalFormProps } from '@/hooks/custom-modal-form';
-import { useCustomModalForm } from '@/hooks/custom-modal-form';
+import type { CustomFormHookProps } from '@/hooks/form/custom-form';
+import { useCustomForm } from '@/hooks/form/custom-form';
 import { ModalForm } from '@ant-design/pro-form';
 import type { PropsWithChildren } from 'react';
 
+interface CustomModalFormProps<T> extends CustomFormHookProps<T> {
+  title: string;
+}
+
 function CustomModalForm<T>(props: PropsWithChildren<CustomModalFormProps<T>>) {
   const { title, visible, onCancel } = props;
-  const { form, onFinish } = useCustomModalForm(props);
+  const { form, onFinish } = useCustomForm(props);
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 14 },

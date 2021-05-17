@@ -1,7 +1,7 @@
 import type { ActionType } from '@ant-design/pro-table';
 import type { MutableRefObject } from 'react';
 import { useCallback, useState } from 'react';
-import { useSwitch } from './boolean';
+import { useSwitch } from '../boolean';
 
 export function useTableModalForm<T>(tableActionRef: MutableRefObject<ActionType | undefined>) {
   const [visible, show, hide] = useSwitch(false);

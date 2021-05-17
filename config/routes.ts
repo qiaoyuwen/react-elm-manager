@@ -15,6 +15,12 @@ const routes: Route[] = [
     component: './welcome',
   },
   {
+    path: '/shops',
+    name: 'shops',
+    icon: 'smile',
+    component: './shops',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

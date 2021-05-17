@@ -17,6 +17,7 @@ export function useTableRequest<P, T = any>(service: (params?: HttpParams) => Pr
       let success = true;
       try {
         data = await service({
+          ...params,
           page: params.current,
           pageSize: params.pageSize,
         });
