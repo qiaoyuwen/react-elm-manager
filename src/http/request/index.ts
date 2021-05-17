@@ -5,6 +5,17 @@ import { ContentType } from './constant';
 
 export type HttpParams = Record<string, any> | URLSearchParams;
 
+export type PaginationParams<T> = T & {
+  pageSize: number;
+  current: number;
+};
+export interface PaginationData<T> {
+  list: T[];
+  current: number;
+  pageSize: number;
+  total: number;
+}
+
 export interface ResponseData<T> {
   statusCode: number;
   message: string;
